@@ -2,10 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class Treasure : MonoBehaviour {
 
-	//Treasure located at (100,-100)
+	//Treasure located at (playerSpeed,-playerSpeed)
 	bool didPlayerWin = false; //Win State
 	public Text dirText; //Direction Text
 	public Transform player; //Player Location
@@ -15,16 +16,19 @@ public class Treasure : MonoBehaviour {
 	public Transform thea;  //Thea Location
 
 	void Update () {
-		if (player.position.x < -100f) {
+		
+		const int playerSpeed = 50;
+
+		if (player.position.x < -playerSpeed) {
 			//Move Right
 			dirText.text = "You are very far away. Go back to the where you started.";
-		} else if (player.position.y > 100f) {
+		} else if (player.position.y > playerSpeed) {
 			//Move Down	
 			dirText.text = "You are very far away. Go back to the where you started.";
-		} else if (player.position.y < -200f) {
+		} else if (player.position.y < -playerSpeed) {
 			//Move Up
 			dirText.text = "You are very far away. Go back to the where you started.";
-		} else if (player.position.x > 200f) {
+		} else if (player.position.x > playerSpeed) {
 			//Move Left
 			dirText.text = "You are very far away. Go back to the where you started.";
 		}
