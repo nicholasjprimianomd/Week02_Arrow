@@ -42,11 +42,11 @@ public class Treasure : MonoBehaviour {
 		}
 		//Player close to Thea
 		else if ((player.position - thea.transform.position).magnitude < 10f) {
-			dirText.text = "Hey oliver its Thea.";
+			dirText.text = "Thea: Oliver, turn around! This area is clear.";
 		}
 		//Player close to Barry
 		else if ((player.position - barry.transform.position).magnitude < 10f) {
-			dirText.text = "Hey oliver its Barry.";
+			dirText.text = "Barry: Keep going, Darhk could be this way!";
 		}
 		//Player close 
 		else if ((player.position - transform.position).magnitude < 20f) {
