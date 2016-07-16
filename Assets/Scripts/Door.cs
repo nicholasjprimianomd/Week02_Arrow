@@ -62,15 +62,10 @@ public class Door : MonoBehaviour {
 			//Open on player proximity
 			if ((player.transform.position - transform.position).magnitude < 5.00f && canMove) {
 				transform.position = transform.position + moveDist;
-				Vector3 targetPosition = initialLocation + moveDist;
-				//transform.position = Vector3.Lerp (transform.position, targetPosition, Time.deltaTime * 2);
-
 				canMove = false;
 				//Close on player proximity
 			} else if ((player.transform.position - transform.position).magnitude >= 10.00f) {
-				//transform.position = Vector3.Lerp (transform.position, initialLocation, Time.deltaTime * 3);
 				transform.position = initialLocation;
-	
 				canMove = true;
 			}
 			//The player is close and the door is locked (this is awful logic)
