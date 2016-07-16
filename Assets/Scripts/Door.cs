@@ -9,11 +9,11 @@ public class Door : MonoBehaviour {
 	public Vector3 moveDist;
 	private Vector3 initialLocation;
 	private bool canMove = true;
-	//public Color newColor;
+	//public Color newColor; <- Old version
 	private Color newColor; 
-	private Vector3 oldPosition;
-	private Vector3 newPosition;
-	public Treasure treasure;
+	private Vector3 oldPosition; // door position tracking
+	private Vector3 newPosition; // door position tracking
+	public Treasure treasure; 
 	public bool isLocked = false;
 	public bool lockTextShowing = false;
 
@@ -24,27 +24,31 @@ public class Door : MonoBehaviour {
 	void Update () {
 		AudioSource audio = GetComponent<AudioSource> ();
 
-
+		//Check position of door to play sound only
+		//if the door has moved in the last frame
 		oldPosition  = transform.position;
 		move ();
 		newPosition = transform.position;
-
 
 		//Play Sound
 		if (newPosition != oldPosition) {
 			playSound (audio);
 		}
-
-
+			
 		//Locked or Unlocked Color
 		if (treasure.isOpen  || !isLocked) {
+			//door is green if open 
 			newColor = new Color (0,1,0,1);
 		}else{
+			//door is red if closed
 			newColor = new Color (1,0,0,1);	
 		}
+
+		//change door color to red or green
 		changeColor (newColor);
 	}
 
+	//change door color
 	private void changeColor(Color col){
 		SpriteRenderer wall = GetComponent<SpriteRenderer> ();
 		wall.color = col;
@@ -62,6 +66,7 @@ public class Door : MonoBehaviour {
 			} else if ((player.transform.position - transform.position).magnitude >= 5.00f) {
 				transform.position = initialLocation;
 				canMove = true;
+				//Too far for lock text to show
 				lockTextShowing = false;
 			}
 			//The player is close and the door is locked (this is awful logic)
