@@ -36,7 +36,7 @@ public class Door : MonoBehaviour {
 	//private IEnumerator Coroutine(){
 	//	playSound (audio);
 	//	yield return WaitForSeconds (1);	
-	//}
+//	}
 
 
 	private void changeColor(Color col){
@@ -45,11 +45,11 @@ public class Door : MonoBehaviour {
 	}
 
 	private void move() {
-			if((player.transform.position - transform.position).magnitude < 4 && canMove){
+			if((player.transform.position - transform.position).magnitude < 5.00f && canMove){
 				transform.position = transform.position + moveDist;
 				canMove = false;
 			}
-			else if ((player.transform.position - transform.position).magnitude > 5){
+			else if ((player.transform.position - transform.position).magnitude >= 5.00f){
 				transform.position = initialLocation;
 				canMove = true;
 			}
