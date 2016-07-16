@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System.Security.Cryptography.X509Certificates;
 
 public class Treasure : MonoBehaviour {
 
@@ -14,6 +15,7 @@ public class Treasure : MonoBehaviour {
 	public Transform diggle; //Diggle Location
 	public Transform barry;  //Barry Location
 	public Transform thea;  //Thea Location
+	public bool isOpen = false;
 
 	void Update () {
 		
@@ -33,8 +35,9 @@ public class Treasure : MonoBehaviour {
 			dirText.text = "You are very far away. Go back to the where you started.";
 		}
 		//Player close to Felicity
-		else if ((player.position - felicity.transform.position).magnitude < 10f) {
-			dirText.text = "Hey oliver its Felicty.";
+		else if ((player.position - felicity.transform.position).magnitude < 5f) {
+			dirText.text = "I hacked the red door. It's open now!";
+			isOpen = true;
 		}
 		//Player close to Diggle
 		else if ((player.position - diggle.transform.position).magnitude < 10f) {
