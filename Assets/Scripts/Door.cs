@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngineInternal;
+using UnityEngine.UI;
+using UnityEngine.SocialPlatforms;
 
 public class Door : MonoBehaviour {
 	public Transform player;
@@ -13,7 +15,7 @@ public class Door : MonoBehaviour {
 	private Vector3 newPosition;
 	public Treasure treasure;
 	public bool isLocked = false;
-
+	public bool lockTextShowing = false;
 
 	void Start () {
 		initialLocation = transform.position;
@@ -60,11 +62,12 @@ public class Door : MonoBehaviour {
 			} else if ((player.transform.position - transform.position).magnitude >= 5.00f) {
 				transform.position = initialLocation;
 				canMove = true;
+				lockTextShowing = false;
 			}
 			//The player is close and the door is locked (this is awful logic)
 		} else if (((player.transform.position - transform.position).magnitude < 5.00f) && isLocked && !treasure.isOpen){
 			treasure.dirText.text = "The door is locked. We'll need Felicity for this!";
-			Debug.Log ("The door is locked. We'll need Felicity for this!");
+			lockTextShowing = true;
 		}
 	}
 

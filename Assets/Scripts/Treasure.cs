@@ -16,6 +16,7 @@ public class Treasure : MonoBehaviour {
 	public Transform barry;  //Barry Location
 	public Transform thea;  //Thea Location
 	public bool isOpen = false;
+	public Door door1;
 
 	void Update () {
 		
@@ -66,7 +67,10 @@ public class Treasure : MonoBehaviour {
 				}
 			}
 		} else {
+			//Is lock text showing
+			if (!door1.lockTextShowing) {
 				dirText.text = "Find Damien Darhk!";
+			}
 		}
 		if (Input.GetKey (KeyCode.Space)) {
 			dirText.text += " " + (player.position - transform.position).ToString ();
