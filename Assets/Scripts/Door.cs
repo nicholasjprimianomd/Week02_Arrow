@@ -61,13 +61,16 @@ public class Door : MonoBehaviour {
 			lockTextShowing = false;
 			//Open on player proximity
 			if ((player.transform.position - transform.position).magnitude < 5.00f && canMove) {
-				//transform.position = transform.position + moveDist;
-				StartCoroutine (move());
+				transform.position = transform.position + moveDist;
+				Vector3 targetPosition = initialLocation + moveDist;
+				//transform.position = Vector3.Lerp (transform.position, targetPosition, Time.deltaTime * 2);
+
 				canMove = false;
 				//Close on player proximity
-			} else if ((player.transform.position - transform.position).magnitude >= 5.00f) {
+			} else if ((player.transform.position - transform.position).magnitude >= 10.00f) {
+				//transform.position = Vector3.Lerp (transform.position, initialLocation, Time.deltaTime * 3);
 				transform.position = initialLocation;
-				StartCoroutine (moveBack());	
+	
 				canMove = true;
 			}
 			//The player is close and the door is locked (this is awful logic)
@@ -85,16 +88,12 @@ public class Door : MonoBehaviour {
 		yield return new WaitForSeconds (1f);
 		transform.position = transform.position + moveDist;	
 		//yield return new WaitForSeconds (.5f);
-
-	
 	}
 
 	IEnumerator moveBack (){
 		yield return new WaitForSeconds (1f);
 		transform.position = initialLocation;	
-		//What the hell are these key words for
 		//yield return new WaitForSeconds (.5f);
-
 	}
 
 
