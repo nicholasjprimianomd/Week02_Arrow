@@ -43,7 +43,7 @@ public class Treasure : MonoBehaviour {
 		}
 		//Player close to Barry
 		else if ((player.position - barry.transform.position).magnitude < 3f) {
-			dirText.text = "Barry: The speed force just have you a boost! Darhk could be this way!";
+			dirText.text = "Barry: The speed force just have you a boost!";
 			//Double player speed on proximity to Barry;
 			playerMove.playerSpeed = increasedPlayerSpeed;
 			trailRendererGreen.enabled = false;
@@ -52,15 +52,14 @@ public class Treasure : MonoBehaviour {
 			//why is unity terrible there should be a class for this
 			trailRendererRed.transform.parent = player.transform;
 			trailRendererRed.transform.position = player.transform.position;
-
 		}
 		//Player close 
-		else if ((player.position - transform.position).magnitude < 7f) {
-			dirText.text = "You are very close. The treasure is right around here.";
+		else if ((player.position - transform.position).magnitude < 9f) {
+			dirText.text = "You're so close!";
 			//Player win zone
 			if ((player.position - transform.position).magnitude < 2f) {
-				dirText.text = "Press [Space] to catch Damien Darhk! ";
-				if (Input.GetKeyDown (KeyCode.Space)) {
+				dirText.text = "Press [Enter] to catch Damien Darhk! ";
+				if (Input.GetKeyDown (KeyCode.Return)) {
 					audio.Play ();
 					didPlayerWin = true;
 				} else if (didPlayerWin) {

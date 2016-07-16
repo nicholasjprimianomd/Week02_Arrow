@@ -16,6 +16,9 @@ public class Door : MonoBehaviour {
 	public Treasure treasure; 
 	public bool isLocked = false; //is the door locked?
 	public bool lockTextShowing = false; //is the door is locked text showing?
+	public SpriteRenderer arrow1;
+	public SpriteRenderer arrow2;
+	private bool isFlipped = false;
 
 	void Start () {
 		initialLocation = transform.position;
@@ -23,7 +26,6 @@ public class Door : MonoBehaviour {
 		
 	void Update () {
 		AudioSource audio = GetComponent<AudioSource> ();
-
 		//Check position of door to play sound only
 		//if the door has moved in the last frame
 		oldPosition  = transform.position;
@@ -46,6 +48,13 @@ public class Door : MonoBehaviour {
 
 		//change door color to red or green
 		changeColor (newColor);
+
+
+		//flip direction arrows on back track path
+		//after doors are unlocked
+		if(treasure.isOpen){
+			flipArrows ();
+		}
 	}
 
 	//change door color
@@ -83,4 +92,13 @@ public class Door : MonoBehaviour {
 			audio.Play ();
 		}
 	}
+
+	private void flipArrows(){
+		if (!isFlipped) {
+			arrow1.flipX = true;
+			arrow2.flipX = true;
+			isFlipped = true;
+		}
+	}
+
 }
