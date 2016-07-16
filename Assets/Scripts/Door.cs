@@ -27,7 +27,7 @@ public class Door : MonoBehaviour {
 		//Check position of door to play sound only
 		//if the door has moved in the last frame
 		oldPosition  = transform.position;
-		move ();
+		moveDoor();
 		newPosition = transform.position;
 
 		//Play Sound
@@ -54,20 +54,21 @@ public class Door : MonoBehaviour {
 		wall.color = col;
 	}
 
-	//Move dooor
-	private void move() {
+	//Move door
+	private void moveDoor() {
 		//Check if door was never locked or has been unlocked
 		if (treasure.isOpen  || !isLocked) {
 			lockTextShowing = false;
 			//Open on player proximity
 			if ((player.transform.position - transform.position).magnitude < 5.00f && canMove) {
-				transform.position = transform.position + moveDist;
+				//transform.position = transform.position + moveDist;
+				StartCoroutine (move());
 				canMove = false;
 				//Close on player proximity
 			} else if ((player.transform.position - transform.position).magnitude >= 5.00f) {
 				transform.position = initialLocation;
+				StartCoroutine (moveBack());	
 				canMove = true;
-				//Too far for lock text to show
 			}
 			//The player is close and the door is locked (this is awful logic)
 		} else if (((player.transform.position - transform.position).magnitude < 5.00f) && isLocked && !treasure.isOpen){
@@ -76,8 +77,27 @@ public class Door : MonoBehaviour {
 		}else{
 			lockTextShowing = false;
 		}
+	}
+
+
+	//WaitForSecondsTutorial - Look into this
+	IEnumerator move (){
+		yield return new WaitForSeconds (1f);
+		transform.position = transform.position + moveDist;	
+		//yield return new WaitForSeconds (.5f);
+
+	
+	}
+
+	IEnumerator moveBack (){
+		yield return new WaitForSeconds (1f);
+		transform.position = initialLocation;	
+		//What the hell are these key words for
+		//yield return new WaitForSeconds (.5f);
 
 	}
+
+
 	//Play door open sound
 	private void playSound(AudioSource audio){
 		if (!audio.isPlaying) {
