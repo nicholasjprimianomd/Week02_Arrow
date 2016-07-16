@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using System.Security.Cryptography.X509Certificates;
+using System;
 
 public class Treasure : MonoBehaviour {
 
@@ -17,6 +18,7 @@ public class Treasure : MonoBehaviour {
 	public Transform thea;  //Thea Location
 	public bool isOpen = false;
 	public Door door1;
+	public Door door2;
 	public PlayerPhysicsMove playerMove;
 	public float increasedPlayerSpeed;
 	public TrailRenderer trailRendererGreen;
@@ -24,36 +26,20 @@ public class Treasure : MonoBehaviour {
 
 	void Update () {
 		
-		const int playerSpeed = 50;
-
-		if (player.position.x < -playerSpeed) {
-			//Move Right
-			dirText.text = "You are very far away. Go back to the where you started.";
-		} else if (player.position.y > playerSpeed) {
-			//Move Down	
-			dirText.text = "You are very far away. Go back to the where you started.";
-		} else if (player.position.y < -playerSpeed) {
-			//Move Up
-			dirText.text = "You are very far away. Go back to the where you started.";
-		} else if (player.position.x > playerSpeed) {
-			//Move Left
-			dirText.text = "You are very far away. Go back to the where you started.";
-		}
-		//Player close to Felicity
-		else if ((player.position - felicity.transform.position).magnitude < 5f) {
-			dirText.text = "I hacked the locked (red) doors. It's open now!";
+	if ((player.position - felicity.transform.position).magnitude < 2f) {
+			dirText.text = "Felicity: I hacked the locked (red) doors. Back track and find Dahrk!";
 			isOpen = true;
 		}
 		//Player close to Diggle
-		else if ((player.position - diggle.transform.position).magnitude < 5f) {
-			dirText.text = "Hey oliver its Diggle.";
+		else if ((player.position - diggle.transform.position).magnitude < 2f) {
+			dirText.text = "Diggle: Come on Oliver, man. You almost have him.";
 		}
 		//Player close to Thea
-		else if ((player.position - thea.transform.position).magnitude < 5f) {
+		else if ((player.position - thea.transform.position).magnitude < 2f) {
 			dirText.text = "Thea: Oliver, turn around! This area is clear.";
 		}
 		//Player close to Barry
-		else if ((player.position - barry.transform.position).magnitude < 5f) {
+		else if ((player.position - barry.transform.position).magnitude < 2f) {
 			dirText.text = "Barry: The speed force just have you a boost! Darhk could be this way!";
 			//Double player speed on proximity to Barry;
 			playerMove.playerSpeed = increasedPlayerSpeed;
@@ -65,10 +51,10 @@ public class Treasure : MonoBehaviour {
 			trailRendererRed.transform.position = player.transform.position;
 		}
 		//Player close 
-		else if ((player.position - transform.position).magnitude < 20f) {
+		else if ((player.position - transform.position).magnitude < 7f) {
 			dirText.text = "You are very close. The treasure is right around here.";
 			//Player win zone
-			if ((player.position - transform.position).magnitude < 5f) {
+			if ((player.position - transform.position).magnitude < 2f) {
 				dirText.text = "Press [Space] to catch Damien Darhk! ";
 				if (Input.GetKeyDown (KeyCode.Space)) {
 					AudioSource audio = GetComponent<AudioSource> ();
@@ -80,7 +66,7 @@ public class Treasure : MonoBehaviour {
 			}
 		} else {
 			//Is lock text showing
-			if (!door1.lockTextShowing) {
+			if (!door1.lockTextShowing && !door2.lockTextShowing) {
 				dirText.text = "Find Damien Darhk!";
 			}
 		}

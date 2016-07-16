@@ -6,16 +6,16 @@ using UnityEngine.SocialPlatforms;
 
 public class Door : MonoBehaviour {
 	public Transform player;
-	public Vector3 moveDist;
-	private Vector3 initialLocation;
+	public Vector3 moveDist; //distance door moves
+	private Vector3 initialLocation;  //reset location of the door
 	private bool canMove = true;
 	//public Color newColor; <- Old version
 	private Color newColor; 
 	private Vector3 oldPosition; // door position tracking
 	private Vector3 newPosition; // door position tracking
 	public Treasure treasure; 
-	public bool isLocked = false;
-	public bool lockTextShowing = false;
+	public bool isLocked = false; //is the door locked?
+	public bool lockTextShowing = false; //is the door is locked text showing?
 
 	void Start () {
 		initialLocation = transform.position;
@@ -58,6 +58,7 @@ public class Door : MonoBehaviour {
 	private void move() {
 		//Check if door was never locked or has been unlocked
 		if (treasure.isOpen  || !isLocked) {
+			lockTextShowing = false;
 			//Open on player proximity
 			if ((player.transform.position - transform.position).magnitude < 5.00f && canMove) {
 				transform.position = transform.position + moveDist;
@@ -67,15 +68,16 @@ public class Door : MonoBehaviour {
 				transform.position = initialLocation;
 				canMove = true;
 				//Too far for lock text to show
-				lockTextShowing = false;
 			}
 			//The player is close and the door is locked (this is awful logic)
 		} else if (((player.transform.position - transform.position).magnitude < 5.00f) && isLocked && !treasure.isOpen){
 			treasure.dirText.text = "The door is locked. We'll need Felicity for this!";
 			lockTextShowing = true;
+		}else{
+			lockTextShowing = false;
 		}
-	}
 
+	}
 	//Play door open sound
 	private void playSound(AudioSource audio){
 		if (!audio.isPlaying) {
