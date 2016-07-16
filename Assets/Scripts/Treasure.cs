@@ -29,12 +29,11 @@ public class Treasure : MonoBehaviour {
 	if ((player.position - felicity.transform.position).magnitude < 3f) {
 			dirText.text = "Felicity: I hacked the locked (red) doors. Back track and find Dahrk!";
 			isOpen = true;
-
 		}
 		//Player close to Diggle
 		else if ((player.position - diggle.transform.position).magnitude < 3f) {
 
-			dirText.text = "Diggle: Come on Oliver, man. You almost have him.";
+			dirText.text = "Diggle: Come on Oliver, man, you almost have him.";
 		}
 		//Player close to Thea
 		else if ((player.position - thea.transform.position).magnitude < 3f) {
@@ -43,7 +42,7 @@ public class Treasure : MonoBehaviour {
 		}
 		//Player close to Barry
 		else if ((player.position - barry.transform.position).magnitude < 3f) {
-			dirText.text = "Barry: The speed force just have you a boost!";
+			dirText.text = "Barry: The speed force just gave you a boost!";
 			//Double player speed on proximity to Barry;
 			playerMove.playerSpeed = increasedPlayerSpeed;
 			trailRendererGreen.enabled = false;
@@ -72,7 +71,7 @@ public class Treasure : MonoBehaviour {
 				dirText.text = "Find Damien Darhk!";
 			}
 		}
-		if (Input.GetKey (KeyCode.Space)) {
+		if (Input.GetKey (KeyCode.Space)) {  //Hold space to cheat
 			dirText.text += " " + (player.position - transform.position).ToString ();
 		}
 	}
