@@ -17,6 +17,10 @@ public class Treasure : MonoBehaviour {
 	public Transform thea;  //Thea Location
 	public bool isOpen = false;
 	public Door door1;
+	public PlayerPhysicsMove playerMove;
+	public float increasedPlayerSpeed;
+	public TrailRenderer trailRendererGreen;
+	public TrailRenderer trailRendererRed;
 
 	void Update () {
 		
@@ -37,20 +41,28 @@ public class Treasure : MonoBehaviour {
 		}
 		//Player close to Felicity
 		else if ((player.position - felicity.transform.position).magnitude < 5f) {
-			dirText.text = "I hacked the red door. It's open now!";
+			dirText.text = "I hacked the locked (red) doors. It's open now!";
 			isOpen = true;
 		}
 		//Player close to Diggle
-		else if ((player.position - diggle.transform.position).magnitude < 10f) {
+		else if ((player.position - diggle.transform.position).magnitude < 5f) {
 			dirText.text = "Hey oliver its Diggle.";
 		}
 		//Player close to Thea
-		else if ((player.position - thea.transform.position).magnitude < 10f) {
+		else if ((player.position - thea.transform.position).magnitude < 5f) {
 			dirText.text = "Thea: Oliver, turn around! This area is clear.";
 		}
 		//Player close to Barry
-		else if ((player.position - barry.transform.position).magnitude < 10f) {
-			dirText.text = "Barry: Keep going, Darhk could be this way!";
+		else if ((player.position - barry.transform.position).magnitude < 5f) {
+			dirText.text = "Barry: The speed force just have you a boost! Darhk could be this way!";
+			//Double player speed on proximity to Barry;
+			playerMove.playerSpeed = increasedPlayerSpeed;
+			trailRendererGreen.enabled = false;
+			trailRendererRed.enabled = true;
+			//attach red trail renderer to player
+			//why is unity terrible there should be a class for this
+			trailRendererRed.transform.parent = player.transform;
+			trailRendererRed.transform.position = player.transform.position;
 		}
 		//Player close 
 		else if ((player.position - transform.position).magnitude < 20f) {
