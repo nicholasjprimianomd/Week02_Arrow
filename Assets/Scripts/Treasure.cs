@@ -24,21 +24,25 @@ public class Treasure : MonoBehaviour {
 	public TrailRenderer trailRendererRed;
 
 	void Update () {
-		
-	if ((player.position - felicity.transform.position).magnitude < 2f) {
+		AudioSource audio = GetComponent<AudioSource> ();
+
+	if ((player.position - felicity.transform.position).magnitude < 3f) {
 			dirText.text = "Felicity: I hacked the locked (red) doors. Back track and find Dahrk!";
 			isOpen = true;
+
 		}
 		//Player close to Diggle
-		else if ((player.position - diggle.transform.position).magnitude < 2f) {
+		else if ((player.position - diggle.transform.position).magnitude < 3f) {
+
 			dirText.text = "Diggle: Come on Oliver, man. You almost have him.";
 		}
 		//Player close to Thea
-		else if ((player.position - thea.transform.position).magnitude < 2f) {
+		else if ((player.position - thea.transform.position).magnitude < 3f) {
 			dirText.text = "Thea: Oliver, turn around! This area is clear.";
+
 		}
 		//Player close to Barry
-		else if ((player.position - barry.transform.position).magnitude < 2f) {
+		else if ((player.position - barry.transform.position).magnitude < 3f) {
 			dirText.text = "Barry: The speed force just have you a boost! Darhk could be this way!";
 			//Double player speed on proximity to Barry;
 			playerMove.playerSpeed = increasedPlayerSpeed;
@@ -48,6 +52,7 @@ public class Treasure : MonoBehaviour {
 			//why is unity terrible there should be a class for this
 			trailRendererRed.transform.parent = player.transform;
 			trailRendererRed.transform.position = player.transform.position;
+
 		}
 		//Player close 
 		else if ((player.position - transform.position).magnitude < 7f) {
@@ -56,7 +61,6 @@ public class Treasure : MonoBehaviour {
 			if ((player.position - transform.position).magnitude < 2f) {
 				dirText.text = "Press [Space] to catch Damien Darhk! ";
 				if (Input.GetKeyDown (KeyCode.Space)) {
-					AudioSource audio = GetComponent<AudioSource> ();
 					audio.Play ();
 					didPlayerWin = true;
 				} else if (didPlayerWin) {

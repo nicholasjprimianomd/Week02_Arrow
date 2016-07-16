@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour {
 		SceneManager.LoadScene (name);
 	}	
 
-	public void playSound(AudioSource audio){
+	public void playStartSound(AudioSource audio){
 		audio.Play() ; 
 	}
 

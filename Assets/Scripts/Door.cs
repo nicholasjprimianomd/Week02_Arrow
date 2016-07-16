@@ -64,7 +64,7 @@ public class Door : MonoBehaviour {
 				transform.position = transform.position + moveDist;
 				canMove = false;
 				//Close on player proximity
-			} else if ((player.transform.position - transform.position).magnitude >= 10.00f) {
+			} else if ((player.transform.position - transform.position).magnitude >= 7.00f) {
 				transform.position = initialLocation;
 				canMove = true;
 			}
@@ -76,21 +76,6 @@ public class Door : MonoBehaviour {
 			lockTextShowing = false;
 		}
 	}
-
-
-	//WaitForSecondsTutorial - Look into this
-	IEnumerator move (){
-		yield return new WaitForSeconds (1f);
-		transform.position = transform.position + moveDist;	
-		//yield return new WaitForSeconds (.5f);
-	}
-
-	IEnumerator moveBack (){
-		yield return new WaitForSeconds (1f);
-		transform.position = initialLocation;	
-		//yield return new WaitForSeconds (.5f);
-	}
-
 
 	//Play door open sound
 	private void playSound(AudioSource audio){
